@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, GridItem, Center } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import { Grid, GridItem, Center, Button } from '@chakra-ui/react';
 import BingoCell from './BingoCell';
 
 // Bingo component
 const Bingo = () => {
-  // reset bingo
-  // reset bingo needs to reset tiles
-
-  // state for each tile ??
-
+  // generate tiles on refresh and page load??
   useEffect(() => {
     console.log('func ran');
     generateTiles();
@@ -53,32 +49,38 @@ const Bingo = () => {
   };
 
   const bingoLetters = () => {
+    console.log('bingo letters ran');
     let letters = ['B', 'I', 'N', 'G', 'O'];
-    <Grid templateColumns="repeat(5, 1fr)" className="bingo__tile_container">
-      {letters.map((id, letter) => {
-        return (
-          <GridItem
-            w="100%"
-            h="50"
-            fontWeight="bold"
-            color="whiteAlpha.900"
-            bg="blue.500"
-            border="white"
-            key={id}
-          >
-            {letter}
-          </GridItem>
-        );
-      })}
-    </Grid>;
+    return (
+      <Grid templateColumns="repeat(5, 1fr)" className="bingo__tile_container">
+        {letters.map((id, letter) => {
+          return (
+            <GridItem
+              w="100%"
+              h="50"
+              fontWeight="bold"
+              color="whiteAlpha.900"
+              bg="blue.500"
+              border="white"
+              key={id}
+            >
+              {id}
+            </GridItem>
+          );
+        })}
+      </Grid>
+    );
   };
 
   return (
     <div className="bingo__container">
-      hello from bingo{' '}
-      <button onClick={() => reset()} style={{ backgroundColor: 'red' }}>
+      <Button
+        colorScheme="messenger"
+        onClick={() => reset()}
+        style={{ backgroundColor: 'red' }}
+      >
         reset
-      </button>
+      </Button>
       {bingoLetters()}
       {generateTiles()}
     </div>
