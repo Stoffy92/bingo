@@ -11,11 +11,16 @@ const BingoCell = ({ isPicked }) => {
 
   // needs to check if Clicked to prevent num changing more than once ??
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    if (!isPicked) {
+      setBingoNumber(randomNumGenerator(1, 100));
+    }
+    console.log('isPicked ', isPicked);
+  };
 
   return (
     <GridItem
-      onClick={() => setBingoNumber(randomNumGenerator(1, 100))}
+      onClick={() => handleClick()}
       w="100%"
       h="50"
       fontWeight="bold"

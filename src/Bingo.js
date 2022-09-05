@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, GridItem, Center, Button } from '@chakra-ui/react';
 import BingoCell from './BingoCell';
 
 // Bingo component
 const Bingo = () => {
+  const [picked, setPicked] = useState(false);
   // generate tiles on refresh and page load??
   useEffect(() => {
     console.log('func ran');
@@ -13,6 +14,15 @@ const Bingo = () => {
   const reset = () => {
     generateTiles();
   };
+
+  // const handlePicked = () => {
+  //   if (picked) {
+  //     setPicked(true);
+  //   } else {
+  //     setPicked(false);
+  //   }
+  //   return picked;
+  // };
 
   // build UI for bingo grid
   const generateTiles = () => {
@@ -48,29 +58,30 @@ const Bingo = () => {
     );
   };
 
-  const bingoLetters = () => {
-    console.log('bingo letters ran');
-    let letters = ['B', 'I', 'N', 'G', 'O'];
-    return (
-      <Grid templateColumns="repeat(5, 1fr)" className="bingo__tile_container">
-        {letters.map((id, letter) => {
-          return (
-            <GridItem
-              w="100%"
-              h="50"
-              fontWeight="bold"
-              color="whiteAlpha.900"
-              bg="blue.500"
-              border="white"
-              key={id}
-            >
-              {id}
-            </GridItem>
-          );
-        })}
-      </Grid>
-    );
-  };
+  // alignment needs fixing
+  // const bingoLetters = () => {
+  //   console.log('bingo letters ran');
+  //   let letters = ['B', 'I', 'N', 'G', 'O'];
+  //   return (
+  //     <Grid templateColumns="repeat(5, 1fr)" className="bingo__tile_container">
+  //       {letters.map((id, letter) => {
+  //         return (
+  //           <GridItem
+  //             w="100%"
+  //             h="50"
+  //             fontWeight="bold"
+  //             color="whiteAlpha.900"
+  //             bg="blue.500"
+  //             border="white"
+  //             key={id}
+  //           >
+  //             {id}
+  //           </GridItem>
+  //         );
+  //       })}
+  //     </Grid>
+  //   );
+  // };
 
   return (
     <div className="bingo__container">
@@ -81,7 +92,7 @@ const Bingo = () => {
       >
         reset
       </Button>
-      {bingoLetters()}
+      {/* {bingoLetters()} */}
       {generateTiles()}
     </div>
   );
