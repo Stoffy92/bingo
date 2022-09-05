@@ -8,13 +8,24 @@ const Bingo = () => {
     return <button style={{ backgroundColor: 'red' }}> reset</button>;
   };
 
+  const randomNumGenerator = tileId => {
+    console.log('func called', tileId);
+  };
   // build UI for bingo grid
   const generateTiles = () => {
     let tiles = [];
 
     for (let tile = 0; tile < 25; tile++) {
       tiles.push(
-        <GridItem w="100%" h="10" bg="blue.500" key={tile}>
+        <GridItem
+          onClick={() => {
+            randomNumGenerator(tile);
+          }}
+          w="100%"
+          h="10"
+          bg="blue.500"
+          key={tile}
+        >
           {tile === 12 ? 'FREE' : tile}
         </GridItem>
       );
