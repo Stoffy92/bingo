@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Grid, GridItem } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { Grid, GridItem, Center } from '@chakra-ui/react';
 import BingoCell from './BingoCell';
 
 // Bingo component
@@ -9,45 +9,38 @@ const Bingo = () => {
 
   // state for each tile ??
 
-  // const [bingoNumber, setBingoNumber] = useState();
-  // const [picked, setPicked] = useState(false);
+  useEffect(() => {
+    console.log('func ran');
+    generateTiles();
+  }, []);
 
-  // const reset = () => {
-  //   return setBingoNumber();
-  // };
-
-  // const randomNumGenerator = (minNum, maxNum, tileId) => {
-  //   let randNum = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-  //   return randNum;
-  // };
-
-  // const handleClick = tileId => {
-  //   let tile = {
-  //     tileId: tileId,
-  //     picked: true,
-  //     number: setBingoNumber(randomNumGenerator(1, 100, tileId)),
-  //   };
-  //   console.log('handleClick', tile);
-  //   return tile;
-  // };
+  const reset = () => {
+    generateTiles();
+  };
 
   // build UI for bingo grid
   const generateTiles = () => {
+    console.log('gen tiles ran');
     let tiles = [];
 
     for (let tile = 0; tile < 25; tile++) {
       tiles.push(
         <GridItem
-          // onClick={() => handleClick(tile)}
           w="100%"
-          h="50"
+          h="100%"
           fontWeight="bold"
           color="whiteAlpha.900"
           bg="red.500"
           border="white"
           key={tile}
         >
-          {tile === 12 ? 'FREE' : <BingoCell />}
+          {tile === 12 ? (
+            <GridItem>
+              <Center color="white">FREE</Center>
+            </GridItem>
+          ) : (
+            <BingoCell />
+          )}
         </GridItem>
       );
     }
@@ -59,12 +52,34 @@ const Bingo = () => {
     );
   };
 
+  const bingoLetters = () => {
+    let letters = ['B', 'I', 'N', 'G', 'O'];
+    <Grid templateColumns="repeat(5, 1fr)" className="bingo__tile_container">
+      {letters.map((id, letter) => {
+        return (
+          <GridItem
+            w="100%"
+            h="50"
+            fontWeight="bold"
+            color="whiteAlpha.900"
+            bg="blue.500"
+            border="white"
+            key={id}
+          >
+            {letter}
+          </GridItem>
+        );
+      })}
+    </Grid>;
+  };
+
   return (
     <div className="bingo__container">
       hello from bingo{' '}
-      {/* <button onClick={() => reset()} style={{ backgroundColor: 'red' }}>
+      <button onClick={() => reset()} style={{ backgroundColor: 'red' }}>
         reset
-      </button> */}
+      </button>
+      {bingoLetters()}
       {generateTiles()}
     </div>
   );

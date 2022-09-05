@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, Center } from '@chakra-ui/react';
 
-const BingoCell = () => {
+const BingoCell = ({ isPicked }) => {
   const [bingoNumber, setBingoNumber] = useState();
-  const [picked, setPicked] = useState(false);
 
   const randomNumGenerator = (minNum, maxNum, tileId) => {
     let randNum = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
     return randNum;
   };
+
+  // needs to check if Clicked to prevent num changing more than once ??
+
+  const handleClick = () => {};
 
   return (
     <GridItem
@@ -17,10 +20,12 @@ const BingoCell = () => {
       h="50"
       fontWeight="bold"
       color="whiteAlpha.900"
-      bg="red.500"
       border="white"
+      backgroundColor="whiteAlpha.400"
     >
-      {bingoNumber}
+      <Center backgroundColor="white" color="red">
+        {bingoNumber}
+      </Center>
     </GridItem>
   );
 };
