@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, GridItem } from '@chakra-ui/react';
 
 // Bingo component
 const Bingo = () => {
   // reset bingo
+  // reset bingo needs to reset tiles
+  // state for each tile
+  const [bingoNumber, setBingoNumber] = useState();
+  const [picked, setPicked] = useState(false);
+
   const reset = () => {
-    return <button style={{ backgroundColor: 'red' }}> reset</button>;
+    return setBingoNumber();
   };
 
-  const randomNumGenerator = tileId => {
-    console.log('func called', tileId);
+  const randomNumGenerator = (minNum, maxNum, tileId) => {
+    let randNum = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+    return randNum;
   };
+
   // build UI for bingo grid
   const generateTiles = () => {
     let tiles = [];
@@ -18,15 +25,16 @@ const Bingo = () => {
     for (let tile = 0; tile < 25; tile++) {
       tiles.push(
         <GridItem
-          onClick={() => {
-            randomNumGenerator(tile);
-          }}
+          onClick={() => setBingoNumber(randomNumGenerator(1, 100, tile))}
           w="100%"
-          h="10"
-          bg="blue.500"
+          h="50"
+          fontWeight="bold"
+          color="whiteAlpha.900"
+          bg="red.500"
+          border="white"
           key={tile}
         >
-          {tile === 12 ? 'FREE' : tile}
+          {tile === 12 ? 'FREE' : bingoNumber}
         </GridItem>
       );
     }
@@ -40,7 +48,10 @@ const Bingo = () => {
 
   return (
     <div className="bingo__container">
-      hello from bingo {reset()}
+      hello from bingo{' '}
+      <button onClick={() => reset()} style={{ backgroundColor: 'red' }}>
+        reset
+      </button>
       {generateTiles()}
     </div>
   );
